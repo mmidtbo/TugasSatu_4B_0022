@@ -86,25 +86,28 @@ if (btnHapus) {
 if (btnEdit) {
   btnEdit.addEventListener("click", function (e) {
     e.preventDefault();
-    if (!daftarTugas) {
-      return;
-    }
-    if (!inputElement || !inputElement.value) {
-      return;
-    }
 
-    alert("masukan note yang ingin di edit !!");
-    const urutan = inputElement.value;
-    const node = daftarTugas.children[urutan - 1];
+    if (!daftarTugas) return;
+    const urutan = prompt("masukkan nomor note yang ingin diedit");
 
     if (!urutan) {
+      alert("masukkan nomor");
       return;
     }
 
-    alert("masukan note anda !!");
-    const note = inputElement.value;
-    node;
+    const node = daftarTugas.children[urutan - 1];
+    if (!node) {
+      alert("note tidak ditemukan");
+      return;
+    }
+
+    const noteBaru = prompt("masukkan note baru");
+    if (!noteBaru) {
+      alert("note tidak boleh kosong");
+      return;
+    }
+
+    node.children[0].textContent = noteBaru;
   });
 }
-
 // btnEdit.addEventListener("click", function () {});
