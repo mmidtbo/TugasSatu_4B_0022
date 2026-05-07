@@ -15,6 +15,23 @@ body {
   gap: 20px;
 }
 
+#btnEditStatusTodo {
+  border: none;
+  border-radius: 2px;
+}
+
+#btnEditTodo {
+  border: none;
+  border-radius: 2px;
+}
+
+#btnHapusTodo {
+  background-color: red;
+  border: none;
+  border-radius: 2px;
+  color: white;
+}
+
 #btnTambahTodo {
   background-color: green;
   border: none;
