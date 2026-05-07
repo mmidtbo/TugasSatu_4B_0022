@@ -1,0 +1,43 @@
+body {
+  margin: 10px;
+  padding: 20px;
+}
+
+.card {
+  background-color: blue;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#formTodo {
+  display: flex;
+  gap: 20px;
+}
+
+#btnTambahTodo {
+  background-color: green;
+  border: none;
+  border-radius: 2px;
+  color: white;
+}
+
+h1 {
+  text-align: center;
+  color: white;
+}
+
+h3 {
+  text-align: center;
+  color: white;
+}
+
+input {
+  flex: 1;
+}
+
+li {
+  display: flex;
+  gap: 10px;
+  color: white;
+  font-weight: bold;
+}
