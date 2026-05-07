@@ -10,7 +10,7 @@ if (btnTambah) {
     e.preventDefault();
 
     const newList = document.createElement("li");
-    const text = document.createElement("p");
+    const text = document.createElement("span");
     const date = document.createElement("p");
     if (
       !inputElement ||
@@ -45,9 +45,15 @@ if (btnHapus) {
   btnHapus.addEventListener("click", function (e) {
     e.preventDefault();
 
-    if (inputElement.value === "" || !inputElement) {
-      alert("input kosong");
+    if (!inputElement || inputElement.value === "") {
+      alert(
+        "input kosong, tentukan node mana yang ingin di hapus (format array+1)",
+      );
       return;
+    }
+
+    if (inputElement) {
+      alert("note ke " + inputElement.value + " berhasil di hapus!");
     }
 
     const node = daftarTugas?.children[inputElement.value - 1];
@@ -77,6 +83,21 @@ if (btnEdit) {
     if (!daftarTugas) {
       return;
     }
+    if (!inputElement || !inputElement.value) {
+      return;
+    }
+
+    alert("masukan note yang ingin di edit !!");
+    const urutan = inputElement.value;
+    const node = daftarTugas.children[urutan - 1];
+
+    if (!urutan) {
+      return;
+    }
+
+    alert("masukan note anda !!");
+    const note = inputElement.value;
+    node;
   });
 }
 
