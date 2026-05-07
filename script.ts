@@ -52,7 +52,11 @@ if (btnHapus) {
   btnHapus.addEventListener("click", function (e) {
     e.preventDefault();
 
-    if (!inputElement || inputElement.value === "") {
+    const urutan = prompt(
+      "masukkan nomor note yang ingin diedit (format array+1)",
+    );
+    console.log(urutan);
+    if (!urutan) {
       alert(
         "input kosong, tentukan node mana yang ingin di hapus (format array+1)",
       );
@@ -61,24 +65,16 @@ if (btnHapus) {
 
     if (!daftarTugas?.children.length) {
       alert("daftar tugas kosong");
-      inputElement.value = "";
       return;
     }
 
-    const node = daftarTugas?.children[inputElement.value - 1];
+    const node = daftarTugas?.children[urutan - 1];
 
-    if (node === undefined) {
-      alert("node undefined");
-      inputElement.value = "";
-      return;
-    }
-
-    if (inputElement) {
-      alert("note ke " + inputElement.value + " berhasil di hapus!");
+    if (node) {
+      alert("note ke " + urutan + " berhasil di hapus!");
     }
 
     daftarTugas.removeChild(node);
-
     inputElement.value = "";
   });
 }
