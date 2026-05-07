@@ -36,7 +36,6 @@ input {
 }
 
 li {
-  display: flex;
   gap: 10px;
   color: white;
   font-weight: bold;
