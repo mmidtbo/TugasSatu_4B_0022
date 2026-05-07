@@ -11,7 +11,10 @@ if (btnTambah) {
 
     const newList = document.createElement("li");
     const text = document.createElement("span");
-    const date = document.createElement("p");
+    const date = document.createElement("small");
+    const status = document.createElement("span");
+    const wrap = document.createElement("div");
+
     if (
       !inputElement ||
       inputElement.value == "" ||
@@ -21,10 +24,13 @@ if (btnTambah) {
       alert("Input tidak boleh kosong");
       return;
     }
+
     date.innerHTML = inputDate.value;
     text.innerHTML = inputElement.value;
+    status.innerHTML = "progress";
 
-    newList.append(text, date);
+    wrap.append(status, date);
+    newList.append(text, wrap);
 
     if (!daftarTugas) {
       alert("daftar tugas tidak ada");
@@ -52,10 +58,6 @@ if (btnHapus) {
       return;
     }
 
-    if (inputElement) {
-      alert("note ke " + inputElement.value + " berhasil di hapus!");
-    }
-
     const node = daftarTugas?.children[inputElement.value - 1];
     console.log(node);
 
@@ -63,6 +65,10 @@ if (btnHapus) {
       alert("node undefined");
       inputElement.value = "";
       return;
+    }
+
+    if (inputElement) {
+      alert("note ke " + inputElement.value + " berhasil di hapus!");
     }
 
     if (!daftarTugas?.children.length) {
