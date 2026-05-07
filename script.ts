@@ -3,6 +3,7 @@ const inputDate = document.getElementById("inputDate");
 const btnTambah = document.getElementById("btnTambahTodo");
 const btnHapus = document.getElementById("btnHapusTodo");
 const btnEdit = document.getElementById("btnEditTodo");
+const btnEditStatus = document.getElementById("btnEditStatusTodo");
 const daftarTugas = document.getElementById("listTugas");
 
 if (btnTambah) {
@@ -106,4 +107,34 @@ if (btnEdit) {
     node.children[0].textContent = noteBaru;
   });
 }
-// btnEdit.addEventListener("click", function () {});
+
+if (btnEditStatus) {
+  btnEditStatus.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    if (!daftarTugas) {
+      return;
+    }
+
+    const urutan = prompt(
+      "masukan nomor note yang ingin anda ubah statusnya (format array+1)",
+    );
+    console.log(urutan);
+
+    if (!urutan) {
+      alert("urutan tidak ada atau urutan harus berupa integer");
+      return;
+    }
+
+    const node = daftarTugas?.children[urutan - 1];
+    if (!node) {
+      alert("note tidak ditemukan");
+      return;
+    }
+    const div = node.children[1];
+    const status = div.children[0];
+    status.textContent = "Done";
+
+    console.log(status);
+  });
+}
