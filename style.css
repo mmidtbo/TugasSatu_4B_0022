@@ -37,12 +37,15 @@ input {
 }
 
 li {
+  display: flex;
+  justify-content: space-between;
   gap: 10px;
   color: white;
   font-weight: bold;
 }
 
 li div {
+  display: flex;
   gap: 12px;
   align-items: center;
 }
