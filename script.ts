@@ -34,6 +34,7 @@ if (btnTambah) {
 
     if (!daftarTugas) {
       alert("daftar tugas tidak ada");
+      inputElement.value = "";
       return;
     }
 
@@ -58,8 +59,13 @@ if (btnHapus) {
       return;
     }
 
+    if (!daftarTugas?.children.length) {
+      alert("daftar tugas kosong");
+      inputElement.value = "";
+      return;
+    }
+
     const node = daftarTugas?.children[inputElement.value - 1];
-    console.log(node);
 
     if (node === undefined) {
       alert("node undefined");
@@ -69,12 +75,6 @@ if (btnHapus) {
 
     if (inputElement) {
       alert("note ke " + inputElement.value + " berhasil di hapus!");
-    }
-
-    if (!daftarTugas?.children.length) {
-      alert("daftar tugas kosong");
-      inputElement.value = "";
-      return;
     }
 
     daftarTugas.removeChild(node);
