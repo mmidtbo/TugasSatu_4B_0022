@@ -56,7 +56,7 @@ if (btnHapus) {
     const urutan = prompt(
       "masukkan nomor note yang ingin diedit (format array+1)",
     );
-    console.log(urutan);
+    // console.log(urutan);
     if (!urutan) {
       alert(
         "input kosong, tentukan node mana yang ingin di hapus (format array+1)",
@@ -119,7 +119,7 @@ if (btnEditStatus) {
     const urutan = prompt(
       "masukan nomor note yang ingin anda ubah statusnya (format array+1)",
     );
-    console.log(urutan);
+    // console.log(urutan);
 
     if (!urutan) {
       alert("urutan tidak ada atau urutan harus berupa integer");
@@ -135,6 +135,6 @@ if (btnEditStatus) {
     const status = div.children[0];
     status.textContent = "Done";
 
-    console.log(status);
+    // console.log(status);
   });
 }
