@@ -9,6 +9,9 @@ if (btnTambah) {
   btnTambah.addEventListener("click", function (e) {
     e.preventDefault();
 
+    const newList = document.createElement("li");
+    const text = document.createElement("p");
+    const date = document.createElement("p");
     if (
       !inputElement ||
       inputElement.value == "" ||
@@ -18,16 +21,10 @@ if (btnTambah) {
       alert("Input tidak boleh kosong");
       return;
     }
-
-    const newList = document.createElement("li");
-    const text = document.createElement("p");
-    const date = document.createElement("p");
-    text.innerHTML = inputElement.value;
     date.innerHTML = inputDate.value;
-    console.log(inputDate.value);
+    text.innerHTML = inputElement.value;
 
-    newList.appendChild(text);
-    newList.appendChild(date);
+    newList.append(text, date);
 
     if (!daftarTugas) {
       alert("daftar tugas tidak ada");
