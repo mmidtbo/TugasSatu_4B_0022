@@ -23,12 +23,15 @@ function updateEmptyMessage() {
 }
 
 function renumberTasks() {
+  console.log("ex");
   if (!daftarTugas) {
     return;
   }
   for (let i = 0; i < daftarTugas.children.length; i++) {
     const li = daftarTugas.children[i];
     const numSpan = li.querySelector(".task-number");
+    console.log(typeof numSpan);
+    // const numSpan = li.querySelector(".task-number");
     if (numSpan) {
       numSpan.textContent = i + 1;
     }
