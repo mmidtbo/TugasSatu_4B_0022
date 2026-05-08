@@ -23,12 +23,18 @@ function updateEmptyMessage() {
 }
 
 function renumberTasks() {
+  console.log("ex");
   if (!daftarTugas) {
     return;
   }
   for (let i = 0; i < daftarTugas.children.length; i++) {
     const li = daftarTugas.children[i];
     const numSpan = li.querySelector(".task-number");
+    console.log(typeof numSpan);
+    console.log(typeof numSpan.textContent);
+    // numSpan = obj
+    // numSpan = obj.textContent = str
+    // const numSpan = li.querySelector(".task-number");
     if (numSpan) {
       numSpan.textContent = i + 1;
     }
@@ -81,7 +87,7 @@ if (btnTambah) {
     number.textContent = daftarTugas.children.length + 1;
     daftarTugas.appendChild(newList);
     inputElement.value = "";
-    // updateEmptyMessage();
+    updateEmptyMessage();
   });
 }
 
