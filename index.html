@@ -1,38 +1,49 @@
 <!doctype html>
 <html lang="en">
-  <style></style>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>test</title>
+    <title>Todo List</title>
     <link href="style.css" rel="stylesheet" />
   </head>
   <body>
     <div class="card">
       <h1>Todo List</h1>
 
-      <form id="formTodo">
-        <input
-          id="inputTask"
-          type="text"
-          placeholder="Masukan tugas"
-          value=""
-        />
-        <button type="button" id="btnTambahTodo">Tambah</button>
-        <button type="button" id="btnHapusTodo">Hapus</button>
-        <button type="button" id="btnEditTodo">Edit</button>
-        <button type="button" id="btnEditStatusTodo">Edit Status</button>
-      </form>
-
-      <form>
-        <input type="date" id="inputDate" value="2026-03-12" />
+      <form id="formTodo" class="formTodo">
+        <div class="input-row">
+          <input id="inputTask" type="text" placeholder="Masukan tugas" />
+          <input type="date" id="inputDate" value="2026-03-12" />
+        </div>
+        <div class="btn-row">
+          <button type="button" id="btnTambahTodo" class="btnTambahTodo">
+            Tambah
+          </button>
+          <button type="button" id="btnEditTodo" class="btnEditTodo">
+            Edit
+          </button>
+          <button
+            type="button"
+            id="btnEditStatusTodo"
+            class="btnEditStatusTodo"
+          >
+            Edit Status
+          </button>
+          <button type="button" id="btnHapusTodo" class="btnHapusTodo">
+            Hapus
+          </button>
+        </div>
       </form>
 
       <h3>Daftar Tugas</h3>
 
-      <ul id="listTugas"></ul>
+      <ul id="listTugas" class="listTugas"></ul>
 
-      <script src="./script.ts"></script>
+      <p id="emptyMessage" class="empty-msg">
+        Belum ada tugas. Silakan tambah tugas baru.
+      </p>
+
+      <script src="./script.js"></script>
     </div>
   </body>
 </html>
