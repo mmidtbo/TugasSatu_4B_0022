@@ -5,33 +5,72 @@ const btnHapus = document.getElementById("btnHapusTodo");
 const btnEdit = document.getElementById("btnEditTodo");
 const btnEditStatus = document.getElementById("btnEditStatusTodo");
 const daftarTugas = document.getElementById("listTugas");
+const emptyMessage = document.getElementById("emptyMessage");
+
+// global (helper)
+function updateEmptyMessage() {
+  if (!daftarTugas || !emptyMessage) {
+    return;
+  }
+  const isEmpty = daftarTugas.children.length === 0;
+  console.log(
+    "jumlah tugas:",
+    daftarTugas.children.length,
+    "| isEmpty:",
+    isEmpty,
+  );
+  emptyMessage.style.display = isEmpty ? "block" : "none";
+}
+
+function renumberTasks() {
+  if (!daftarTugas) {
+    return;
+  }
+  for (let i = 0; i < daftarTugas.children.length; i++) {
+    const li = daftarTugas.children[i];
+    const numSpan = li.querySelector(".task-number");
+    if (numSpan) {
+      numSpan.textContent = i + 1;
+    }
+  }
+}
+// global (helper)
 
 if (btnTambah) {
   btnTambah.addEventListener("click", function (e) {
     e.preventDefault();
 
-    const newList = document.createElement("li");
-    const text = document.createElement("span");
-    const date = document.createElement("small");
-    const status = document.createElement("span");
-    const wrap = document.createElement("div");
-
     if (
       !inputElement ||
-      inputElement.value == "" ||
+      inputElement.value.trim() === "" ||
       !inputDate ||
-      inputDate.value == ""
+      inputDate.value === ""
     ) {
       alert("Input tidak boleh kosong");
       return;
     }
 
-    date.innerHTML = inputDate.value;
-    text.innerHTML = inputElement.value;
-    status.innerHTML = "progress";
+    const newList = document.createElement("li");
+    const number = document.createElement("span");
+    number.className = "task-number";
 
+    const text = document.createElement("span");
+    text.className = "task-text";
+    text.textContent = inputElement.value.trim();
+
+    const date = document.createElement("span");
+    date.className = "task-date";
+    date.textContent = inputDate.value;
+
+    const status = document.createElement("span");
+    status.className = "status-badge progress";
+    status.textContent = "progress";
+
+    const wrap = document.createElement("div");
+    wrap.className = "task-meta";
     wrap.append(status, date);
-    newList.append(text, wrap);
+
+    newList.append(number, text, wrap);
 
     if (!daftarTugas) {
       alert("daftar tugas tidak ada");
@@ -39,13 +78,10 @@ if (btnTambah) {
       return;
     }
 
-    // console.log(typeof daftarTugas.children.length);
-    // console.log(daftarTugas.children.length);
-    // console.log(daftarTugas.children[0]);
-
+    number.textContent = daftarTugas.children.length + 1;
     daftarTugas.appendChild(newList);
-
     inputElement.value = "";
+    // updateEmptyMessage();
   });
 }
 
@@ -53,30 +89,28 @@ if (btnHapus) {
   btnHapus.addEventListener("click", function (e) {
     e.preventDefault();
 
-    const urutan = prompt(
-      "masukkan nomor note yang ingin diedit (format array+1)",
-    );
-    // console.log(urutan);
-    if (!urutan) {
-      alert(
-        "input kosong, tentukan node mana yang ingin di hapus (format array+1)",
-      );
-      return;
-    }
-
     if (!daftarTugas?.children.length) {
       alert("daftar tugas kosong");
       return;
     }
 
-    const node = daftarTugas?.children[urutan - 1];
+    const urutan = prompt("masukkan nomor tugas yang ingin dihapus");
 
-    if (node) {
-      alert("note ke " + urutan + " berhasil di hapus!");
+    if (!urutan) {
+      alert("input kosong");
+      return;
     }
 
+    const node = daftarTugas.children[urutan - 1];
+    if (!node) {
+      alert("tugas tidak ditemukan");
+      return;
+    }
+
+    alert("tugas ke " + urutan + " berhasil dihapus!");
     daftarTugas.removeChild(node);
-    inputElement.value = "";
+    renumberTasks();
+    updateEmptyMessage();
   });
 }
 
@@ -84,8 +118,16 @@ if (btnEdit) {
   btnEdit.addEventListener("click", function (e) {
     e.preventDefault();
 
-    if (!daftarTugas) return;
-    const urutan = prompt("masukkan nomor note yang ingin diedit");
+    if (!daftarTugas) {
+      return;
+    }
+
+    if (!daftarTugas.children.length) {
+      alert("daftar tugas kosong");
+      return;
+    }
+
+    const urutan = prompt("masukkan nomor tugas yang ingin diedit");
 
     if (!urutan) {
       alert("masukkan nomor");
@@ -94,17 +136,20 @@ if (btnEdit) {
 
     const node = daftarTugas.children[urutan - 1];
     if (!node) {
-      alert("note tidak ditemukan");
+      alert("tugas tidak ditemukan");
       return;
     }
 
-    const noteBaru = prompt("masukkan note baru");
-    if (!noteBaru) {
-      alert("note tidak boleh kosong");
+    const textSpan = node.querySelector(".task-text");
+    const noteBaru = prompt("masukkan tugas baru", textSpan?.textContent || "");
+    if (!noteBaru || !noteBaru.trim()) {
+      alert("tugas tidak boleh kosong");
       return;
     }
 
-    node.children[0].textContent = noteBaru;
+    if (textSpan) {
+      textSpan.textContent = noteBaru.trim();
+    }
   });
 }
 
@@ -116,25 +161,35 @@ if (btnEditStatus) {
       return;
     }
 
-    const urutan = prompt(
-      "masukan nomor note yang ingin anda ubah statusnya (format array+1)",
-    );
-    // console.log(urutan);
+    if (!daftarTugas.children.length) {
+      alert("daftar tugas kosong");
+      return;
+    }
+
+    const urutan = prompt("masukkan nomor tugas yang ingin diubah statusnya");
 
     if (!urutan) {
-      alert("urutan tidak ada atau urutan harus berupa integer");
+      alert("urutan tidak boleh kosong");
       return;
     }
 
-    const node = daftarTugas?.children[urutan - 1];
+    const node = daftarTugas.children[urutan - 1];
     if (!node) {
-      alert("note tidak ditemukan");
+      alert("tugas tidak ditemukan");
       return;
     }
-    const div = node.children[1];
-    const status = div.children[0];
-    status.textContent = "Done";
 
-    // console.log(status);
+    const statusSpan = node.querySelector(".status-badge");
+    if (!statusSpan) return;
+
+    if (statusSpan.textContent === "progress") {
+      statusSpan.textContent = "done";
+      statusSpan.className = "status-badge done";
+    } else {
+      statusSpan.textContent = "progress";
+      statusSpan.className = "status-badge progress";
+    }
   });
 }
+
+updateEmptyMessage();
